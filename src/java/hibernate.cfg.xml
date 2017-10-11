@@ -9,5 +9,6 @@
     <property name="hibernate.connection.password">vignesh</property>
     <property name="hibernate.hbm2ddl.auto">update</property>
     <property name="hibernate.show_sql">true</property>
-  </session-factory>
+    <mapping resource="eventmgr/domain/location.hbm.xml"/>
+    </session-factory>
 </hibernate-configuration>
