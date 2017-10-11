@@ -34,7 +34,7 @@ public class LocationTest {
 		out.println( loc1 );
 		out.println( loc2 );
 		
-		          Transaction tx = session.beginTransaction();
+		Transaction tx = session.beginTransaction();
 		session.save( loc1 );
 		session.save( loc2 );
 		tx.commit();
@@ -45,7 +45,8 @@ public class LocationTest {
 	public static void testRetrieve() {
 		out.println("Retrieving locations...");
 		Session session = factory.openSession();
-		          Query query = session.createQuery("from Location");
+		Query query = session.createQuery(
+			"from Location l where l.address like '%Bangkok%'");
 		Transaction tx = session.beginTransaction();
 		          List list = query.list( );
 		// print the locations
@@ -54,14 +55,33 @@ public class LocationTest {
 		session.close();
 		out.println("Done retrieving");
 	}
+      public static void testUpdate( String name, String newAddress ) {
+		out.println("Updating "+name +"...");
+		Session session = HibernateUtil.openSession( );
+		Transaction tx = session.beginTransaction();
+		Query query = session.createQuery(
+				"from Location where name=:name");
+		query.setParameter("name", name );
+		List list = query.list( );
+		if ( list.size() == 0 ) out.print("No location named "+name);
+		else {
+			// change first location that matches
+			Location loc = (Location) list.get(0);
+			loc.setAddress( newAddress );
+			out.println( loc );
+		}
+		tx.commit();
+		session.close( );
+	}
+
 	
 	public static void main(String[] args) {
-		//testSave();
-            saveLocations();
+		saveLocations();
 		testRetrieve();
-		//testUpdate("Kasetsart University", "Kampaengsaen");
-		testRetrieve();
+		testUpdate( "Mahidol University","Rama IV Rd, Bangkok");
+		testRetrieve( );
 	}
+
 
 
 }
