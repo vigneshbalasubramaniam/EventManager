@@ -11,5 +11,6 @@
     <property name="hibernate.show_sql">true</property>
     <mapping resource="eventmgr/domain/location.hbm.xml"/>
     <mapping resource="eventmgr/domain/event.hbm.xml"/>
+    <mapping resource="eventmgr/domain/speaker.hbm.xml"/>
   </session-factory>
 </hibernate-configuration>

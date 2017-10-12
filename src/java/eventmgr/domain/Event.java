@@ -7,6 +7,7 @@
 package eventmgr.domain;
 
 import java.util.Date;
+import java.util.Set;
 
 /**
  *
@@ -17,6 +18,7 @@ public class Event {
     private String name;
     private Date startDate;
     private Location location;
+    private Set<Speaker> speakers;
     public Event()
     { 
     }
@@ -24,6 +26,17 @@ public class Event {
     public int getId() {
         return id;
     }
+    public Set<Speaker> getSpeakers() {
+        return speakers; 
+    }
+
+	protected void setSpeakers(Set<Speaker> speakers) {
+		this.speakers = speakers;
+	}
+	public void addSpeaker( Speaker speaker ) { 
+		if ( ! speakers.contains(speaker) )
+                    speakers.add(speaker);
+	}
 
     private void setId(int id) {
         this.id = id;
